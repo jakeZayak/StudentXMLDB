@@ -1,0 +1,22 @@
+public static Document XMLbuilder(String FilePath) 
+    {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        Document doc = null;
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+            
+            try {
+                doc = builder.parse(FilePath);
+
+            } catch (SAXException ex) {
+                Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return doc;
+    }
+}

@@ -1,0 +1,23 @@
+public static void XMLoutput(Document doc)
+    {
+        DOMSource source = new DOMSource(doc);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer;
+
+        try {
+            transformer = transformerFactory.newTransformer();
+
+            StreamResult result = new StreamResult("E:\\Java\\Students_TEST.xml");
+            
+            try {
+                transformer.transform(source, result);
+            } catch (TransformerException ex) {
+                Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (TransformerConfigurationException ex) {
+            Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TestApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
