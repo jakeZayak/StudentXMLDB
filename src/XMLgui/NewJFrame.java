@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author a246user
  */
 public class NewJFrame extends javax.swing.JFrame {
-        String filePath = "Z:\\Java\\Students.xml";
+        String filePath = "E:\\Java\\Students.xml";
         Document doc = XMLbuilder(filePath); 
     /**
      * Creates new form NewJFrame
@@ -49,8 +49,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        rbSearchName = new javax.swing.JRadioButton();
-        rbSearchID = new javax.swing.JRadioButton();
+        rbFNLN = new javax.swing.JRadioButton();
+        rbID = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         txtAddID = new javax.swing.JTextField();
         txtAddFName = new javax.swing.JTextField();
@@ -67,6 +67,7 @@ public class NewJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(780, 438));
         setResizable(false);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Delete"));
         jPanel3.setPreferredSize(new java.awt.Dimension(187, 140));
@@ -74,6 +75,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel7.setText("ID");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -82,11 +88,11 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDelID, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDelID, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -122,19 +128,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Last Name");
 
-        buttonGroup3.add(rbSearchName);
-        rbSearchName.setText("By Name");
-        rbSearchName.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup3.add(rbFNLN);
+        rbFNLN.setText("By Name");
+        rbFNLN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbSearchNameActionPerformed(evt);
+                rbFNLNActionPerformed(evt);
             }
         });
 
-        buttonGroup3.add(rbSearchID);
-        rbSearchID.setText("By ID");
-        rbSearchID.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup3.add(rbID);
+        rbID.setText("By ID");
+        rbID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbSearchIDActionPerformed(evt);
+                rbIDActionPerformed(evt);
             }
         });
 
@@ -147,18 +153,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(0, 73, Short.MAX_VALUE)
-                        .addComponent(rbSearchID)
+                        .addComponent(rbID)
                         .addGap(9, 9, 9)
-                        .addComponent(rbSearchName))
+                        .addComponent(rbFNLN))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtSearchID))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnSearchClear, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearchClear, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,8 +179,8 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbSearchID)
-                    .addComponent(rbSearchName))
+                    .addComponent(rbID)
+                    .addComponent(rbFNLN))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearchID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,7 +194,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(txtSearchLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(btnSearchClear)))
         );
@@ -354,59 +359,68 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchClearActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if (!rbSearchID.isSelected() && !rbSearchID.isSelected())
-        {
-            return;
-        }
-        String searchFName;
-        String searchLName;
-        Integer searchID;
-        if (rbSearchName.isSelected()) 
-        {
-            searchFName = txtSearchFName.getText();
-            searchLName = txtSearchFName.getText();
-            searchID = null;
-            XML.XMLsearch(doc, searchFName, searchLName, searchID);
-        } 
-        else{
-                searchFName = "";
-                searchLName = "";
-                searchID = Integer.parseInt(txtSearchID.getText());
-                XML.XMLsearch(doc, searchFName, searchLName, searchID);
+        Document doc = XMLbuilder(filePath);
+        String criteria;
+        String fname = "";
+        String lname = "";
+        int id = 0;
 
-        }
-        txtResults.setText(null);
-        List<Student> studentList = XML.XMLpopulate(doc);
-        
-        
-        txtResults.append("ID\t|\tFirst Name\t|\tLast Name\n");
+        if ((rbFNLN.isSelected() && txtSearchFName.getText().isEmpty() && txtSearchLName.getText().isEmpty()) || (rbID.isSelected() && txtSearchID.getText().isEmpty())) {
+            txtResults.append("No search criteria has been entered");
+        } else {
+            if (rbFNLN.isSelected()) {
+                criteria = "fnln";
+                fname = txtSearchFName.getText();
+                lname = txtSearchLName.getText();
+            } else {
+                try {
+                    criteria = "id";
+                    id = Integer.parseInt(txtSearchID.getText());
+                } catch (Exception e) {
 
-        txtResults.append("-----------------------------------------------------------------------------------------------------------------------------------------\n");
-        studentList.forEach((tempStudent) -> {
-            txtResults.append("["+ (Integer.toString(tempStudent.ID))+ "]" + "\t|\t" + tempStudent.fName + "\t|\t" + tempStudent.lName + "\n");
-            txtResults.append("-----------------------------------------------------------------------------------------------------------------------------------------\n");
-        });
-        txtSearchFName.setEnabled(true);
-        txtSearchLName.setEnabled(true);
-        txtSearchID.setEnabled(true);
+                    txtResults.setText("Invalid ID");
+                    return;
+                }
+
+            }
+
+            List<Student> studentList = XML.XMLsearch(criteria, id, fname, lname, doc);
+
+            txtResults.setText(null);
+            txtResults.append("ID\t\tFirst Name\t\tLast Name\n");
+            txtResults.append("---------------------------------------------------------------------------------------------------------------------------");
+
+            for (Student tempStudent : studentList) {
+                txtResults.append("\n" + Integer.toString(tempStudent.ID) + "\t\t" + tempStudent.fName + "\t\t" + tempStudent.lName + "\n");
+            }
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void rbSearchIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSearchIDActionPerformed
+    private void rbIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIDActionPerformed
         // TODO add your handling code here:
         txtSearchID.setEnabled(true);
         txtSearchFName.setEnabled(false);
         txtSearchLName.setEnabled(false);
         txtSearchFName.setText(null);
         txtSearchLName.setText(null);
-    }//GEN-LAST:event_rbSearchIDActionPerformed
+    }//GEN-LAST:event_rbIDActionPerformed
 
-    private void rbSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSearchNameActionPerformed
+    private void rbFNLNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFNLNActionPerformed
         // TODO add your handling code here:
         txtSearchID.setEnabled(false);
         txtSearchID.setText(null);
         txtSearchFName.setEnabled(true);
         txtSearchLName.setEnabled(true);
-    }//GEN-LAST:event_rbSearchNameActionPerformed
+    }//GEN-LAST:event_rbFNLNActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        Document doc = XMLbuilder(filePath);
+        Integer id = Integer.parseInt(txtDelID.getText());
+        String guiid = Integer.toString(id);
+        XML.XMLdelete(doc, guiid);        
+                
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,8 +480,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton rbSearchID;
-    private javax.swing.JRadioButton rbSearchName;
+    private javax.swing.JRadioButton rbFNLN;
+    private javax.swing.JRadioButton rbID;
     private javax.swing.JTextField txtAddFName;
     private javax.swing.JTextField txtAddID;
     private javax.swing.JTextField txtAddLName;
