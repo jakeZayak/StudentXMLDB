@@ -99,7 +99,7 @@ public class XML {
         try {
             transformer = transformerFactory.newTransformer();
 
-            StreamResult result = new StreamResult("E:\\Java\\Students.xml");
+            StreamResult result = new StreamResult("Z:\\Java\\Students.xml");
             
             try {
                 transformer.transform(source, result);
@@ -208,7 +208,12 @@ public class XML {
         }
         return doc;
     }
-
+    
+//    public static List<Student> XMLsearch(Document doc)
+//    {
+//        
+//    }
+    
     public static List<Student> XMLsearch(String criteria, int guiid, String guifname, String guilname, Document doc) {
         List<Student> studentList = XMLpopulate(doc);
         List<Student> resultList = new ArrayList<>();

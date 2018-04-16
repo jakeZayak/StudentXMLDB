@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ */ 
 package XMLgui;
 import Classes.XML;
 import static Classes.XML.XMLbuilder;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author a246user
  */
 public class NewJFrame extends javax.swing.JFrame {
-        String filePath = "E:\\Java\\Students.xml";
+        String filePath = "Z:\\Java\\Students.xml";
         Document doc = XMLbuilder(filePath); 
     /**
      * Creates new form NewJFrame
@@ -67,7 +67,6 @@ public class NewJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(780, 438));
         setResizable(false);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Delete"));
         jPanel3.setPreferredSize(new java.awt.Dimension(187, 140));
@@ -320,7 +319,8 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAddActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:    
+        Document doc = XMLbuilder(filePath); 
         String id = txtAddID.getText();
         String fName = txtAddFName.getText();
         String lName = txtAddLName.getText();
@@ -356,6 +356,9 @@ public class NewJFrame extends javax.swing.JFrame {
         txtSearchID.setText(null);
         txtSearchFName.setText(null);
         txtSearchLName.setText(null);
+        rbFNLN.setSelected(false);
+        rbID.setSelected(false);
+        buttonGroup3.clearSelection();
     }//GEN-LAST:event_btnSearchClearActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -372,7 +375,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 criteria = "fnln";
                 fname = txtSearchFName.getText();
                 lname = txtSearchLName.getText();
-            } else {
+            } else if(rbID.isSelected()){
                 try {
                     criteria = "id";
                     id = Integer.parseInt(txtSearchID.getText());
@@ -382,6 +385,9 @@ public class NewJFrame extends javax.swing.JFrame {
                     return;
                 }
 
+            }else{
+                criteria = null;
+                XML.XMLpopulate(doc);
             }
 
             List<Student> studentList = XML.XMLsearch(criteria, id, fname, lname, doc);
@@ -418,8 +424,7 @@ public class NewJFrame extends javax.swing.JFrame {
         Document doc = XMLbuilder(filePath);
         Integer id = Integer.parseInt(txtDelID.getText());
         String guiid = Integer.toString(id);
-        XML.XMLdelete(doc, guiid);        
-                
+        XML.XMLdelete(doc, guiid);                        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
