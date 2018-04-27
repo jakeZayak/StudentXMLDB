@@ -1,11 +1,15 @@
 package Classes;
 
 import XMLgui.NewJFrame;
+import XMLgui.NewJFrameTEST;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import static java.lang.reflect.Array.set;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,8 +28,15 @@ import org.xml.sax.SAXException;
 public class XML {
 
     public static void main(String[] args) {
-        NewJFrame frame = new NewJFrame();
-        frame.setDefaultCloseOperation(NewJFrame.EXIT_ON_CLOSE);
+        try {
+                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());                
+
+                    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
+                      //unhandled
+                    }
+        
+        NewJFrameTEST frame = new NewJFrameTEST();
+        frame.setDefaultCloseOperation(NewJFrameTEST.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -33,7 +44,7 @@ public class XML {
     //public static void XMLdelete(Document doc, String guiid) {
         
         
-    public static void XMLdelete(Document doc, String guiid) {
+    public static void XMLdelete(Document doc, String guiid, String filePath) {
         NodeList nlStudentList = doc.getElementsByTagName("student");
         for (int i = 0; i < nlStudentList.getLength(); i++) {
             Node nStudent = nlStudentList.item(i);
@@ -54,42 +65,10 @@ public class XML {
                 }
             }
         }
-        XMLoutput(doc);
-    }
-        //List<Student> studentList = new ArrayList<>();
-//
-//        NodeList nlStudentList = doc.getElementsByTagName("student");
-//
-//        for (int i = 0; i < nlStudentList.getLength(); i++) {
-//            Node nStudent = nlStudentList.item(i);
-//
-//            if (nStudent.getNodeType() == Node.ELEMENT_NODE) {
-//                Element eStudent = (Element) nStudent;
-//
-//                // gets the list of nodes inside of a node
-//                NodeList attrList = eStudent.getChildNodes();
-//
-//                for (int j = 0; j < attrList.getLength(); j++) {
-//                    Node n = attrList.item(j);
-//
-//                    if (n.getNodeType() == Node.ELEMENT_NODE) {
-//                        Element eAttr = (Element) n;
-//
-//                        if (eAttr.getTagName().equals("id") && eAttr.getTextContent().equals(guiid)) {
-//                            //casting node to the element type and assigning it to delete
-//                            Element delete = (Element) doc.getElementsByTagName("student").item(i);
-//                            //identifies the parent of the node
-//                            Node parent = delete.getParentNode();
-//                            parent.removeChild(delete);
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//        }        
+        XMLoutput(doc, filePath);
+    }      
     
-
-    public static void XMLoutput(Document doc)
+    public static void XMLoutput(Document doc, String filePath)
     {
         DOMSource source = new DOMSource(doc);
 
@@ -99,7 +78,7 @@ public class XML {
         try {
             transformer = transformerFactory.newTransformer();
 
-            StreamResult result = new StreamResult("Z:\\Java\\Students.xml");
+            StreamResult result = new StreamResult(filePath);
             
             try {
                 transformer.transform(source, result);
@@ -187,7 +166,7 @@ public class XML {
         return (studentList);
     }
 
-    public static Document XMLbuilder(String FilePath) 
+    public static Document XMLbuilder(String filePath) 
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document doc = null;
@@ -196,7 +175,7 @@ public class XML {
             builder = factory.newDocumentBuilder();
             
             try {
-                doc = builder.parse(FilePath);
+                doc = builder.parse(filePath);
 
             } catch (SAXException ex) {
                 Logger.getLogger(XML.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,12 +187,7 @@ public class XML {
         }
         return doc;
     }
-    
-//    public static List<Student> XMLsearch(Document doc)
-//    {
-//        
-//    }
-    
+ 
     public static List<Student> XMLsearch(String criteria, int guiid, String guifname, String guilname, Document doc) {
         List<Student> studentList = XMLpopulate(doc);
         List<Student> resultList = new ArrayList<>();
@@ -249,120 +223,8 @@ public class XML {
             }
 
         }
+        Collections.sort(resultList, Student.getCompByName());
         return (resultList);
     }
 
-//    public static Document XMLsearch(String criteria, Document doc, String fname, String lname, int id) {
-//        List<Student> studentList = XMLpopulate(doc);
-//        for (Student tempStudent : studentList) {
-//            if (fname.isEmpty() && lname.isEmpty()) {
-//
-//                System.out.println("ID: " + tempStudent.ID);
-//                System.out.println("First Name: " + tempStudent.fName);
-//                System.out.println("Last Name: " + tempStudent.lName);
-//                System.out.println("empty FN && empty LN");
-//
-//            } else if (tempStudent.fName.toLowerCase().equals(fname) && tempStudent.lName.toLowerCase().equals(lname)) {
-//                System.out.println("ID: " + tempStudent.ID);
-//                System.out.println("First Name: " + tempStudent.fName);
-//                System.out.println("Last Name: " + tempStudent.lName);
-//                System.out.println("FN && LN");
-//
-//            } else if (fname.isEmpty() && tempStudent.lName.toLowerCase().startsWith(lname)) {
-//
-//                System.out.println("ID: " + tempStudent.ID);
-//                System.out.println("First Name: " + tempStudent.fName);
-//                System.out.println("Last Name: " + tempStudent.lName);
-//                System.out.println("empty FN && starts with LN");
-//
-//            } else if (tempStudent.fName.toLowerCase().startsWith(fname) && lname.isEmpty()) {
-//
-//                System.out.println("ID: " + tempStudent.ID);
-//                System.out.println("First Name: " + tempStudent.fName);
-//                System.out.println("Last Name: " + tempStudent.lName);
-//                System.out.println("starts with FN && empty LN");
-//
-//            } else if (tempStudent.fName.toLowerCase().startsWith(fname) && tempStudent.lName.toLowerCase().startsWith(lname)) {
-//
-//                System.out.println("ID: " + tempStudent.ID);
-//                System.out.println("First Name: " + tempStudent.fName);
-//                System.out.println("Last Name: " + tempStudent.lName);
-//                System.out.println("starts with FN && starts with LN");
-//
-//            } else {
-//                continue;
-//            }
-//
-//        }
-//        return doc;
-//    }
-    
-//    public static void XMLsearch(String criteria, int id,String fname,String lname,Document doc) {
-//        List<Student> studentList = XMLpopulate(doc);
-//        
-//        int searchID = 1;
-//
-//        fname = fname.toLowerCase();
-//        lname = lname.toLowerCase();
-//
-//        if (radioBtn == true) {
-//
-//            for (Student tempStudent : studentList) {
-//                if (tempStudent.ID == searchID) {
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("FN & LN");
-//
-//                } else {
-//                    break;
-//                }
-//
-//            }
-//
-//        } else {
-//
-//            for (Student tempStudent : studentList) {
-//                if (fname.isEmpty() && lname.isEmpty()) {
-//
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("empty FN && empty LN");
-//
-//                } else if (tempStudent.fName.toLowerCase().equals(searchFName) && tempStudent.lName.toLowerCase().equals(searchLName)) {
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("FN && LN");
-//
-//                } else if (searchFName.isEmpty() && tempStudent.lName.toLowerCase().startsWith(searchLName)) {
-//
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("empty FN && starts with LN");
-//
-//                } else if (tempStudent.fName.toLowerCase().startsWith(searchFName) && searchLName.isEmpty()) {
-//
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("starts with FN && empty LN");
-//
-//                } else if (tempStudent.fName.toLowerCase().startsWith(searchFName) && tempStudent.lName.toLowerCase().startsWith(searchLName)) {
-//
-//                    System.out.println("ID: " + tempStudent.ID);
-//                    System.out.println("First Name: " + tempStudent.fName);
-//                    System.out.println("Last Name: " + tempStudent.lName);
-//                    System.out.println("starts with FN && starts with LN");
-//
-//                } else {
-//                    continue;
-//                }
-//            }
-//
-//        }
-//
-//    }
 }
